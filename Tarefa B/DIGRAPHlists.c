@@ -68,9 +68,17 @@ void DIGRAPHremoveA(Digraph G, Vertex v, Vertex w) {
     link p, q;
 
     q = G->adj[v];
+    if (q != NULL && q->w == w){
+      G->adj[v] = q->next;
+      free(q);
+      q = NULL;
+      G->A--;
+    }
+
     for (p = G->adj[v]; p!= NULL && q != NULL; p = p->next){
         q = p->next;
-        if (q->w == w){
+
+        if (q != NULL && q->w == w){
             p->next = q->next;
             free(q);
             q = NULL;
@@ -95,22 +103,28 @@ void DIGRAPHshow(Digraph G) {
 }
 
 int main(int argc, char *argv[]){
-   Digraph g;
+    Digraph g;
 
 
-   printf("Digraph Lists\n");
-   g = DIGRAPHinit(6);
+    printf("Digraph Lists\n\n");
+    g = DIGRAPHinit(6);
 
-   DIGRAPHinsertA(g, 0, 1);
-   DIGRAPHinsertA(g, 0, 2);
-   DIGRAPHinsertA(g, 2, 3);
-   DIGRAPHinsertA(g, 5, 4);
-   DIGRAPHinsertA(g, 2, 5);
-   DIGRAPHinsertA(g, 1, 4);
-   DIGRAPHinsertA(g, 1, 4);
+    DIGRAPHinsertA(g, 0, 1);
+    DIGRAPHinsertA(g, 0, 2);
+    DIGRAPHinsertA(g, 2, 3);
+    DIGRAPHinsertA(g, 5, 4);
+    DIGRAPHinsertA(g, 2, 5);
+    DIGRAPHinsertA(g, 1, 4);
+    DIGRAPHinsertA(g, 1, 4);
 
-   DIGRAPHremoveA(g, 2, 3);
-   DIGRAPHremoveA(g, 2, 4);
+    DIGRAPHremoveA(g, 5, 4);
+    DIGRAPHremoveA(g, 2, 3);
+    DIGRAPHremoveA(g, 0, 1);
+    DIGRAPHremoveA(g, 0, 6);
+    DIGRAPHremoveA(g, 0, 2);
+    DIGRAPHremoveA(g, 1, 4);
+    DIGRAPHremoveA(g, 2, 5);
+    DIGRAPHremoveA(g, 1, 4);
 
-   DIGRAPHshow(g);
+    DIGRAPHshow(g);
 }
