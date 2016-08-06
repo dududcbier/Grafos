@@ -42,4 +42,3 @@ double dist2(Point p, Point q);
  * <= D um do outro */
 
 Digraph GRAPHdistance(int V, double D);
-
