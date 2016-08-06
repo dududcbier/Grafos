@@ -8,7 +8,7 @@
 // Autor:      Eduardo Bier
 // Numero USP: 8536148
 // Sigla:      EDUARDOD
-// Data:       Aug 5, 2016
+// Data:       Aug 6, 2016
 // 
 // Este arquivo faz parte da Tarefa B
 // da disciplina MAC0328.
@@ -19,27 +19,27 @@
 //
 //
 ////////////////////////////////////////////////////////////// */
-#ifndef DIGRAPHMATRIX_H_
-#define DIGRAPHMATRIX_H_
 
-#define Vertex int
-
-struct digraph {
-   int V;
-   int A;
-   int **adj;
+struct point {
+    double x;
+    double y;
 };
 
-typedef struct digraph *Digraph;
+typedef struct point Point;
 
-Digraph DIGRAPHinit(int V);
-void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w);
-void DIGRAPHremoveA(Digraph G, Vertex v, Vertex w);
-void DIGRAPHshow(Digraph G);
-void DIGRAPHdestroy(Digraph G);
-int DIGRAPHindeg(Digraph G, Vertex v);
-int DIGRAPHoutdeg(Digraph G, Vertex v);
-Digraph DIGRAPHrand1(int V, int A);
-Digraph DIGRAPHrand2(int V, int A);
+/* A função randP() escolhe um ponto aleatório no quadrado 
+ * [0,1) x [0,1) */
 
-#endif /* DIGRAPHMATRIX_H_ */
+Point randP();
+
+/* A função dist2() calcula o quadrado da distância entre os
+ * pontos p e q */
+
+double dist2(Point p, Point q);
+
+/* A função GRAPHdistance escolhe V pontos aleatórios e devolve
+ * um grafo cujas arestas ligam pontos que estão a uma distância
+ * <= D um do outro */
+
+Digraph GRAPHdistance(int V, double D);
+

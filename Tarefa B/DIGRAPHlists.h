@@ -53,5 +53,8 @@ Digraph DIGRAPHinit(int V);
 void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHremoveA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHshow(Digraph G);
+void DIGRAPHdestroy(Digraph G);
+int DIGRAPHindeg(Digraph G, Vertex v);
+int DIGRAPHoutdeg(Digraph G, Vertex v);
 
 #endif /* TAREFA_B_DIGRAPHLISTS_H_ */
