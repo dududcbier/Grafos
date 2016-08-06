@@ -8,9 +8,9 @@
 // Autor:      Eduardo Bier
 // Numero USP: 8536148
 // Sigla:      EDUARDOD
-// Data:       Aug 5, 2016
+// Data:       Aug 6, 2016
 // 
-// Este arquivo faz parte da Tarefa B
+// Este arquivo faz parte da Grafos
 // da disciplina MAC0328.
 // 
 ////////////////////////////////////////////////////////////// */
@@ -19,16 +19,33 @@
 //
 //
 ////////////////////////////////////////////////////////////// */
-#ifndef DIGRAPHMATRIX_H_
-#define DIGRAPHMATRIX_H_
+#ifndef TAREFA_B_DIGRAPHLISTS_H_
+#define TAREFA_B_DIGRAPHLISTS_H_
 
 #define Vertex int
+
+/* A lista de adjacência de um vértice v é composta por nós do tipo
+ * node. Cada nó da lista corresponde a um arco e contém um vizinho
+ * w de v e o endereço do nó seguinte da lista. Um link é um ponteiro
+ * para um node. */
+
+typedef struct node *link;
+struct node {
+   Vertex w;
+   link next;
+};
+
+/* A estrutura digraph representa um digrafo. O campo adj é um ponteiro
+ *  para o vetor de listas de adjacência, o campo V contém o número de
+ *  vértices e o campo A contém o número de arcos do digrafo. */
 
 struct digraph {
    int V;
    int A;
-   int **adj;
+   link *adj;
 };
+
+/* Um Digraph é um ponteiro para um digraph. */
 
 typedef struct digraph *Digraph;
 
@@ -37,4 +54,4 @@ void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHremoveA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHshow(Digraph G);
 
-#endif /* DIGRAPHMATRIX_H_ */
+#endif /* TAREFA_B_DIGRAPHLISTS_H_ */
