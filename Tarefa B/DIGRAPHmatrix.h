@@ -32,7 +32,12 @@ struct digraph {
 
 typedef struct digraph *Digraph;
 
+/* A função DIGRAPHinit() cria um digrafo com vértices 0, 1..V-1 e
+ * sem arcos. */
+
 Digraph DIGRAPHinit(int V);
+
+
 void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHremoveA(Digraph G, Vertex v, Vertex w);
 void DIGRAPHshow(Digraph G);

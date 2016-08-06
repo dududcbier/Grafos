@@ -27,9 +27,6 @@
 
 static int **MATRIXint(int r, int c, int val);
 
-/* A função DIGRAPHinit() cria um digrafo com vértices 0, 1..V-1 e
- * sem arcos. */
-
 Digraph DIGRAPHinit(int V) {
    Digraph G = malloc(sizeof *G);
    G->V = V;
