@@ -1,25 +1,31 @@
 CC=gcc
 CFLAGS=-pedantic -Wall
 
-all: grafoDistancia
+all: RNG listTest matrixTest
 
-grafoDistancia: DIGRAPHlists.o grafoDistancia.o
-	$(CC) -o grafoDistancia grafoDistancia.o DIGRAPHlists.o
+RNG: DIGRAPHlists.o RNG.o
+	$(CC) -o RNG RNG.o DIGRAPHlists.o
 
-grafoDistancia.o: DIGRAPHlists.o grafoDistancia.c grafoDistancia.h
-	$(CC) $(CFLAGS) -c grafoDistancia.c
+listTest: DIGRAPHlists.o listTest.o
+	$(CC) -o listTest listTest.o DIGRAPHlists.o
 
-# list: DIGRAPHlists.o
-# 	$(CC) -o list DIGRAPHlists.o 
+matrixTest: DIGRAPHmatrix.o matrixTest.o
+	$(CC) -o matrixTest matrixTest.o DIGRAPHmatrix.o
+
+RNG.o: DIGRAPHlists.o RNG.c
+	$(CC) $(CFLAGS) -c RNG.c
+
+listTest.o: listTest.c DIGRAPHlists.h
+	$(CC) $(CFLAGS) -c listTest.c
 
 DIGRAPHlists.o: DIGRAPHlists.c DIGRAPHlists.h
 	$(CC) $(CFLAGS) -c DIGRAPHlists.c
 
-# matrix: DIGRAPHmatrix.o
-# 	$(CC) -o matrix DIGRAPHmatrix.o 
+matrixTest.o: matrixTest.c DIGRAPHmatrix.h
+	$(CC) $(CFLAGS) -c matrixTest.c
 
 DIGRAPHmatrix.o: DIGRAPHmatrix.c DIGRAPHmatrix.h
 	$(CC) $(CFLAGS) -c DIGRAPHmatrix.c
 
 clean:
-	rm *o list matrix grafoDistancia
+	rm *o listTest matrixTest RNG

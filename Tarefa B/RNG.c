@@ -21,78 +21,45 @@
 // sorteia v pontos no quadrado [0,1)×[0,1) e liga os pontos 
 // que estiverem à distância <= d um ao outro. O programa e-
 // xibe o grafo caso ele caiba na tela e imprime o número de
-// arestas construídas.
+// arestas construídas. Caso o modo verbose seja habilitado,
+// os pontos sorteados e o grafo serão impressos (independen-
+// te do tamanho).
 //
 ////////////////////////////////////////////////////////////// */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "DIGRAPHlists.h"
-#include "grafoDistancia.h"
-#include <math.h>
+#include <string.h>
 
-Point randP(){
-   Point p;
-   p.x = rand() / (RAND_MAX + 1.0);
-   p.y = rand() / (RAND_MAX + 1.0);
-   return p;
-}
-
-double dist2(Point p, Point q){
-   double deltaX = p.x - q.x;
-   double deltaY = p.y - q.y;
-
-   return deltaX * deltaX + deltaY * deltaY;
-}
-
-Digraph GRAPHdistance(int V, double D){
-
-   Digraph G = DIGRAPHinit(V);
-   Point *p;
-   Vertex i, j;
-
-   p = malloc(V * sizeof(Point));
-   D *= D;
-
-   for (i = 0; i < V; i++)
-      p[i] = randP();
-
-   for (i = 0; i < V; i++)
-      for (j = i + 1; j < V; j++)
-         if (dist2(p[i], p[j]) <= D){
-            DIGRAPHinsertA(G, i, j);
-            DIGRAPHinsertA(G, j, i);
-         }
-
-   return G;
-
-}
-
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
    int v;
    double d;
    Digraph g;
 
    if (argc < 3) {
-      printf("\nUsage: %s v d\n", argv[0]);
+      printf("\nUsage: %s v d [-v]\n", argv[0]);
       printf("\tv: number of vertices\n");
-      printf("\td: critical distance\n\n");
+      printf("\td: critical distance\n");
+      printf("\t-v: verbose\n\n");
       return -1;
    }
 
+   if (argc == 4 && strcmp(argv[3],"-v") == 0) {
+      verbose = TRUE;
+   }
+
    v = atoi(argv[1]);
+
    d = atof(argv[2]);
 
    srand(time(NULL));
 
-   g = GRAPHdistance(v, d);
-   if (v <= 100)
+   g = GRAPHrelativeNeighborhood(v, d);
+   if (verbose || ! DIGRAPHtooBig(g)) {
       DIGRAPHshow(g);
+   }
 
-
-   printf("\nNúmero de arestas: %d\n", g->A);
+   printf("\nNúmero de arestas: %d\n", g->A / 2);
    DIGRAPHdestroy(g);
 
    return 0;

@@ -17,12 +17,17 @@
 
 /* //// Descrição do programa ///////////////////////////////
 //
+//  Implementação de funções básicas para manipulação de di-
+//  grafos usando matriz de adjacência. O programa é capaz de:
+//  
+//  - Inicializar digrafos vazios
+//  - Inserir e remover vértices
+//  - Destruir digrafos
+//  - Calcular graus de entrada/saída
+//  - Inicializar digrafos e grafos aleatórios
 //
 ////////////////////////////////////////////////////////////// */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 #include "DIGRAPHmatrix.h"
 
 static int **MATRIXint(int r, int c, int val);
@@ -35,10 +40,6 @@ Digraph DIGRAPHinit(int V) {
    return G;
 }
 
-/* A função DIGRAPHinsertA() insere um arco v-w no digrafo G. A função
- * supõe que v e w são distintos, positivos e menores que G->V. Se o
- * digrafo já tem um arco v-w, a função não faz nada. */
-
 void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w) {
    if (G->adj[v][w] == 0) {
       G->adj[v][w] = 1;
@@ -46,19 +47,12 @@ void DIGRAPHinsertA(Digraph G, Vertex v, Vertex w) {
    }
 }
 
-/* A função DIGRAPHremoveA() remove do digrafo G o arco v-w. A função
- * supõe que v e w são distintos, positivos e menores que G->V. Se não
- * existe arco v-w, a função não faz nada. */
-
 void DIGRAPHremoveA( Digraph G, Vertex v, Vertex w) {
    if (G->adj[v][w] == 1) {
       G->adj[v][w] = 0;
       G->A--;
    }
 }
-
-/* A função DIGRAPHshow() imprime, para cada vértice v do digrafo G, em
- * uma linha, todos os vértices adjacentes a v. */
 
 void DIGRAPHshow(Digraph G) {
    Vertex v, w;
@@ -71,9 +65,6 @@ void DIGRAPHshow(Digraph G) {
    }
 }
 
-/* A função DIGRAPHdestroy() destrói o grafo G, liberando
- * a memória usada */
-
 void DIGRAPHdestroy(Digraph G) {
    Vertex i;
    for (i = 0; i < G->V; i++)
@@ -82,20 +73,14 @@ void DIGRAPHdestroy(Digraph G) {
    free(G);
 }
 
-/* A função DIGRAPHindeg() calcula o grau de entrada do vértice v.
- * A função supõe que v é positivo e menor que G->V). */
-
-int DIGRAPHindeg(Digraph G, Vertex v){
+int DIGRAPHindeg(Digraph G, Vertex v) {
    int i, indeg = 0;
    for (i = 0; i < G->V; i++)
       indeg += G->adj[i][v];
    return indeg;
 }
 
-/* A função DIGRAPHindeg() calcula o grau de saída do vértice v.
- * A função supõe que v é positivo e menor que G->V. */
-
-int DIGRAPHoutdeg(Digraph G, Vertex v){
+int DIGRAPHoutdeg(Digraph G, Vertex v) {
    int i, outdeg = 0;
    for (i = 0; i < G->V; i++)
       outdeg += G->adj[v][i];
@@ -116,22 +101,11 @@ static int **MATRIXint(int r, int c, int val) {
    return m;
 }
 
-/* A função randV() devolve um vértice aleatório do 
- * digrafo G. Ela é apenas um invólucro para a função
- * rand() da biblioteca stdlib, que produz um número
- * inteiro (pseudo)aleatório no intervalo fechado 0..RAND_MAX. */
-
 Vertex randV(Digraph G) { 
    double r;
    r = rand() / (RAND_MAX + 1.0);
    return r * G->V;
 }
-
-/* DIGRAPHrand1() constrói um digrafo aleatório com vértices 0..V-1 e 
- * exatamente A arcos. A função supõe que A <= V*(V-1). 
- * Se A for próximo de V*(V-1), a função pode consumir
- * muito tempo. (Código inspirado no Programa 17.7 de 
- * Sedgewick.) */
 
 Digraph DIGRAPHrand1(int V, int A) { 
    Vertex v, w;
@@ -145,12 +119,6 @@ Digraph DIGRAPHrand1(int V, int A) {
    return G;
 }
 
-/* DIGRAPHrand2() constrói um digrafo aleatório com vértices 0..V-1.
- * Cada um dos V*(V-1) possíveis arcos é criado com probabilidade p,
- * sendo p calculado de modo que o número esperado de arcos seja A. 
- * A função supõe que V >= 2 e A <= V*(V-1). (Código inspirado no 
- * Program 17.8 de Sedgewick.) */
-
 Digraph DIGRAPHrand2(int V, int A) { 
    Vertex v, w;
    double p = (double) A / V / (V-1);
@@ -162,19 +130,13 @@ Digraph DIGRAPHrand2(int V, int A) {
    return G;
 }
 
-/* GRAPHrand1() constrói um grafo aleatório com vértices 0..V-1 e 
- * exatamente A arcos. A função supõe que A <= V*(V-1). 
- * Se A for próximo de V*(V-1), a função pode consumir
- * muito tempo. (Código inspirado no Programa 17.7 de 
- * Sedgewick.) */
-
-Digraph GRAPHrand1(int V, int A) { 
+Digraph GRAPHrand1(int V, int E) { 
    Vertex v, w;
    Digraph G = DIGRAPHinit(V);
-   while (G->A < A) {
+   while (G->A < 2 * E) {
       v = randV(G);
       w = randV(G);
-      if (v != w){ 
+      if (v != w) { 
          DIGRAPHinsertA(G, v, w);
          DIGRAPHinsertA(G, w, v);
       }
@@ -182,82 +144,82 @@ Digraph GRAPHrand1(int V, int A) {
    return G;
 }
 
-/* GRAPHrand2() constrói um grafo aleatório com vértices 0..V-1.
- * Cada um dos V*(V-1) possíveis arcos é criado com probabilidade p,
- * sendo p calculado de modo que o número esperado de arcos seja A. 
- * A função supõe que V >= 2 e A <= V*(V-1). (Código inspirado no 
- * Program 17.8 de Sedgewick.) */
-
-Digraph GRAPHrand2(int V, int A) { 
+Digraph GRAPHrand2(int V, int E) { 
    Vertex v, w;
-   double p = (double) A / V / (V-1);
+   double p = (double) 2 * E / V / (V-1);
    Digraph G = DIGRAPHinit(V);
    for (v = 0; v < V; v++)
       for (w = 0; w < V; w++)
-         if (v != w && rand() < p*(RAND_MAX+1.0)){
+         if (v != w && rand() < p*(RAND_MAX+1.0)) {
             DIGRAPHinsertA(G, v, w);
             DIGRAPHinsertA(G, w, v);
          }
    return G;
 }
 
-// int main(int argc, char *argv[]){
-//    Digraph g, h;
-//    Vertex v;
+void randP(double p[2]) {
+   p[0] = rand() / (RAND_MAX + 1.0);
+   p[1] = rand() / (RAND_MAX + 1.0);
+}
 
-//    srand (time(NULL));
+double dist2(double p[2], double q[2]) {
+   double deltaX = p[0] - q[0];
+   double deltaY = p[1] - q[1];
 
-//    g = DIGRAPHinit(6);
+   return deltaX * deltaX + deltaY * deltaY;
+}
 
-//    DIGRAPHinsertA(g, 0, 1);
-//    DIGRAPHinsertA(g, 0, 2);
-//    DIGRAPHinsertA(g, 2, 3);
-//    DIGRAPHinsertA(g, 5, 4);
-//    DIGRAPHinsertA(g, 2, 5);
-//    DIGRAPHinsertA(g, 1, 4);
-//    DIGRAPHinsertA(g, 1, 4);
+Digraph GRAPHrelativeNeighborhood(int V, double D) {
 
-//    DIGRAPHremoveA(g, 2, 3);
-//    DIGRAPHremoveA(g, 2, 4);
+   Digraph G = DIGRAPHinit(V);
+   double **p = malloc(V * sizeof(double *));
+   Vertex i, j;
 
-//    DIGRAPHshow(g);
+   for (i = 0; i < V; i++)
+      p[i] = malloc(2 * sizeof(double));
 
-//    printf("\nGraus de entrada:\n");
-//    for (v = 0; v < g->V; v++)
-//       printf("%d: %d\n", v, DIGRAPHindeg(g,v));
+   for (i = 0; i < V; i++)
+      randP(p[i]);
 
-//    printf("\nGraus de saída:\n");
-//    for (v = 0; v < g->V; v++)
-//       printf("%d: %d\n", v, DIGRAPHoutdeg(g,v));
+   if (verbose)
+      for (i = 0; i < V; i++) {
+         for (j = 0; j < 2; j++)
+            printf("%f ", p[i][j]);
+         printf("\n");
+      }
 
-//    DIGRAPHdestroy(g);
+   D *= D;
+   for (i = 0; i < V; i++)
+      for (j = i + 1; j < V; j++)
+         if (dist2(p[i], p[j]) <= D) {
+            DIGRAPHinsertA(G, i, j);
+            DIGRAPHinsertA(G, j, i);
+         }
 
-//    printf("\nDigraph Rand 1:\n");
-//    h = DIGRAPHrand1(10, 12);
-//    DIGRAPHshow(h);
-//    DIGRAPHdestroy(h);
+   for (i = 0; i < 2; i++)
+      free(p[i]);
 
-//    printf("\nDigraph Rand 2:\n");
-//    h = DIGRAPHrand2(10, 12);
-//    DIGRAPHshow(h);
+   return G;
+}
 
-//    printf("\nGraph Rand 1:\n");
-//    h = GRAPHrand1(10, 12);
-//    DIGRAPHshow(h);
-//    DIGRAPHdestroy(h);
+int DIGRAPHmaxIndeg(Digraph G, int *indeg) {
+   int i, max = -1;
 
-//    printf("\nGraph Rand 2:\n");
-//    h = GRAPHrand2(10, 12);
-//    DIGRAPHshow(h);
+   for (i = 0; i < G->V; i++) {
+      indeg[i] = DIGRAPHindeg(G, i);
+      if (indeg[i] > max)
+         max = indeg[i];
+   }
 
-//    DIGRAPHdestroy(h);
-// }
+   return max;
+}
 
-
-
-
-
-
-
-
-
+int DIGRAPHtooBig(Digraph G) {
+   int *indeg = malloc(G->V * sizeof(int));
+   if (G->V > MAX_PRINTABLE_V || DIGRAPHmaxIndeg(G, indeg) > MAX_PRINTABLE_SIZE) {
+      free(indeg);
+      return 1;
+   }
+   free(indeg);
+   return 0;
+}
