@@ -32,3 +32,8 @@
 *.dSYM/
 *.su
 /Debug/
+
+# Other
+*.orig
+*.tar
+/astyle/
