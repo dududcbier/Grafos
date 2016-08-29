@@ -16,9 +16,9 @@ int main() {
     DIGRAPHshow(G);
     v = DIGRAPHcycleOrTopo(G);
     if (v == -1) {
-        printf("Não existe ciclo.\nNumeração topológica:\n");
+        printf("Não existe ciclo:\n - Numeração topológica:\n");
         for (v = 0; v < G->V; v++)
-            printf("%d: %d\n", v, G->V - 1 - pos[v]);
+            printf("    %d: %d\n", v, G->V - 1 - pos[v]);
     } else {
         ciclo = malloc((V + 1) * sizeof(Vertex));
         ciclo[0] = -1;
