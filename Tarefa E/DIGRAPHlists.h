@@ -54,13 +54,13 @@ struct node {
  *  para o vetor de listas de adjacência, o campo V contém o número de
  *  vértices e o campo A contém o número de arcos do digrafo. */
 struct digraph {
-   int     V; 
-   int     A; 
-   link   *adj; 
-   int     aaaa; 
-   int    *bbbb; 
-   int    *cccc; 
-   Vertex *dddd; 
+    int     V;
+    int     A;
+    link   *adj;
+    int     aaaa;
+    int    *bbbb;
+    int    *cccc;
+    Vertex *dddd;
 };
 
 /* Um Digraph é um ponteiro para um digraph. */

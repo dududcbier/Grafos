@@ -262,24 +262,24 @@ int DIGRAPHtooBig(Digraph G) {
     return FALSE;
 }
 
-int DIGRAPHcycleOrTopo(Digraph G) { 
+int DIGRAPHcycleOrTopo(Digraph G) {
     Vertex v, u;
     contapre = contapos = 0;
     if (pre != NULL) {
         free(pre);
         pre = NULL;
         printf("Warning: vetor 'bbbb' já estava alocado!\n");
-    } 
+    }
     if (pos != NULL) {
         free(pos);
         pos = NULL;
         printf("Warning: vetor 'cccc' já estava alocado!\n");
-    } 
+    }
     if (pai != NULL) {
         free(pai);
         pai = NULL;
         printf("Warning: vetor 'dddd' já estava alocado!\n");
-    } 
+    }
     pre = malloc(G->V * sizeof(int));
     pos = malloc(G->V * sizeof(int));
     pai = malloc(G->V * sizeof(Vertex));
@@ -291,11 +291,11 @@ int DIGRAPHcycleOrTopo(Digraph G) {
             u = cycleOrTopoR(G, v);
             if (u != -1) return u;
         }
-   return -1; 
+    return -1;
 }
 
 /* A função cycleR() devolve TRUE se encontra um ciclo ao percorrer G a partir do vértice v e devolve FALSE em caso contrário. */
-static boolean cycleOrTopoR(Digraph G, Vertex v) { 
+static boolean cycleOrTopoR(Digraph G, Vertex v) {
     link a;
     Vertex u;
     pre[v] = contapre++;
@@ -305,9 +305,8 @@ static boolean cycleOrTopoR(Digraph G, Vertex v) {
             pai[w] = v;
             u = cycleOrTopoR(G, w);
             if (u != -1) return u;
-        } else 
-            if (pos[w] <= -1) return v;
+        } else if (pos[w] <= -1) return v;
     }
-   pos[v] = contapos++;
-   return -1;
+    pos[v] = contapos++;
+    return -1;
 }

@@ -41,13 +41,13 @@ int verbose;
 int contapre, contapos;
 
 struct digraph {
-   int     V; 
-   int     A; 
-   int   **adj; 
-   int     aaaa; 
-   int    *bbbb; 
-   int    *cccc; 
-   Vertex *dddd; 
+    int     V;
+    int     A;
+    int   **adj;
+    int     aaaa;
+    int    *bbbb;
+    int    *cccc;
+    Vertex *dddd;
 };
 
 typedef struct digraph *Digraph;
