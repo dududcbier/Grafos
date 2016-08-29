@@ -256,7 +256,9 @@ int DIGRAPHcycleOrTopo(Digraph G) {
     return -1;
 }
 
-/* A função cycleR() devolve TRUE se encontra um ciclo ao percorrer G a partir do vértice v e devolve FALSE em caso contrário. */
+/* A função cycleR() devolve um vértice w se encontra um ciclo
+ * ao percorrer G a partir do vértice v e devolve -1 em caso
+ * contrário. */
 static boolean cycleOrTopoR(Digraph G, Vertex v) {
     Vertex w, u;
     pre[v] = contapre++;

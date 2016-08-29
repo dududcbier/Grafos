@@ -146,7 +146,10 @@ int DIGRAPHmaxIndeg(Digraph G, int indeg[]);
  * de vértices for muito grande. */
 int DIGRAPHtooBig(Digraph G);
 
-/* Esta função decide se o digrafo G tem um ciclo. A função retorna um vértice pertencente a um ciclo caso ele exista. Se nenhum ciclo existir, a função retorna -1 e, nesse caso, o vetor pos[] representa uma ordenação topológica inversa. */
+/* Esta função decide se o digrafo G tem um ciclo. A função retorna
+ * um vértice pertencente a um ciclo caso ele exista. Se nenhum ciclo
+ * existir, a função retorna -1 e, nesse caso, o vetor pos[] representa
+ * uma ordenação topológica inversa. */
 boolean DIGRAPHcycleOrTopo(Digraph G);
 
 #endif /* TAREFA_B_DIGRAPHLISTS_H_ */
