@@ -8,9 +8,9 @@
 // Autor:      Eduardo Bier
 // Numero USP: 8536148
 // Sigla:      EDUARDOD
-// Data:       Aug 5, 2016
+// Data:       Aug 29, 2016
 //
-// Este arquivo faz parte da Tarefa B
+// Este arquivo faz parte da Tarefa E
 // da disciplina MAC0328.
 //
 ////////////////////////////////////////////////////////////// */
@@ -25,6 +25,7 @@
 //  - Destruir digrafos
 //  - Calcular graus de entrada/saída
 //  - Inicializar digrafos e grafos aleatórios
+//  - Detectar ciclos/Fornecer uma numeração topológicaa
 //
 ////////////////////////////////////////////////////////////// */
 
@@ -256,9 +257,9 @@ int DIGRAPHcycleOrTopo(Digraph G) {
     return -1;
 }
 
-/* A função cycleR() devolve um vértice w se encontra um ciclo
- * ao percorrer G a partir do vértice v e devolve -1 em caso
- * contrário. */
+/* A função cycleR() devolve o vértice v se encontra um ciclo
+ * ao percorrer G a partir dele e devolve -1 caso nenhum ciclo
+ * seja detectado. */
 static boolean cycleOrTopoR(Digraph G, Vertex v) {
     Vertex w, u;
     pre[v] = contapre++;

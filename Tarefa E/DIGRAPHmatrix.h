@@ -8,9 +8,9 @@
 // Autor:      Eduardo Bier
 // Numero USP: 8536148
 // Sigla:      EDUARDOD
-// Data:       Aug 5, 2016
+// Data:       Aug 29, 2016
 //
-// Este arquivo faz parte da Tarefa B
+// Este arquivo faz parte da Tarefa E
 // da disciplina MAC0328.
 //
 ////////////////////////////////////////////////////////////// */
@@ -136,7 +136,9 @@ int DIGRAPHtooBig(Digraph G);
 /* Esta função decide se o digrafo G tem um ciclo. A função retorna
  * um vértice pertencente a um ciclo caso ele exista. Se nenhum ciclo
  * existir, a função retorna -1 e, nesse caso, o vetor pos[] representa
- * uma ordenação topológica inversa. */
+ * uma ordenação topológica inversa. Com os vetores pai, pos e pre, que
+ * são pelo menos parcialmente preenchidos durante a execução da fun-
+ * ção, é fácil de descobrir o ciclo detectado pelo algoritmo. */
 int DIGRAPHcycleOrTopo(Digraph G);
 
 #endif /* DIGRAPHMATRIX_H_ */
